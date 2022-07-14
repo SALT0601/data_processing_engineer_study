@@ -1,0 +1,32 @@
+SQL - DCL
+
+DCL(Data Control Language, 데이터 제어어)
+- 데이터의 보안, 무결성, 회복, 병행 제어 등 정의하는데 사용
+- DCL 종류
+-> COMMIT : 명령에 의해 수행된 결과를 실제 물리적 디스크로 저장, 데이터베이스 조작 작업이 정상적으로 완료되었음을 관리자에게 알려줌
+-> ROLLBACK : 데이터베이스 조작 작업이 비정상적으로 종료되었을 때 원래의 상태로 복구
+-> GRANT : 데이터베이스 사용자에게 사용권한 부여
+-> REVOKE : 테이터베이스 사용자의 사용 권한 취소
+
+GRANT/REVOKE
+- 사용자에게 사용 권한 부여하거나 취소
+- 사용자 등급 지정 및 해제 : GRANT 사용자등급 TO 사용자_ID_리스트 [INDENTIFIED BY 암호];
+			REVOKE 사용자등급 FROM 사용자_ID_리스트;
+- 사용자 등급 : DBA(데베 관리자), RESOURCE(데베 및 테이블 생성 가능자), CONNECT(단순 사용자)
+- 테이블 및 속성에 대한 권한 부여 및 취소
+	: GRANT 권한_리스트 ON 개체 TO 사용자 [WITH GRANT OPTION];
+	  REVOKE [GRANT OPTION FOR] 권한_리스트 ON 개체 FROM 사용자 [CASCADE];
+- 권한 종류 : ALL, SELECT, INSERT, DELETE, UPDATE 등
+- WITH GRANT OPTION : 부여 받은 권한 다른 사용자에게 다시 부여할 수 있는 권한 부여
+- GRANT OPTION FOR : 다른 사용자에게 권한 부여할 수 있는 권한 취소
+
+COMMIT
+- 트랜잭션 처리가 정상적으로 완료된 후 트랜잭션이 수행한 내용을 테이터베이스에 반영하는 명령
+
+ROLLBACK 
+- 변경되었으나 아직 COMMIT 되지 않은 모든 내용들을 취소하고 데이터베이스를 이전 상태로 되돌리는 명령
+
+SAVEPOINT 
+- 트랜잭션 내 ROLLBACK할 위치인 저장점을 지정하는 멸령어
+- 저장점 지정할 때는 이름 부여
+- ROLLBACK 시 저장점까지의 처리내용 모두 취소 (ROLLBACK TO 저장점_이름;)
